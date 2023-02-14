@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "GAME")
+@Table(name = "EDITOR")
 public class Editor implements IEntity<Long> {
 
     @Id
