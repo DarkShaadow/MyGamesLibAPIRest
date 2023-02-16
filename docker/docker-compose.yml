@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  my-games-lib-db:
+    build:
+      context: db
+      dockerfile: Dockerfile
+    ports:
+      - "55661:5432"
+    container_name: my-games-lib-db
+    hostname: my-games-lib-db
+    volumes:
+      - postgres-data-mgl:/var/lib/postgresql/data
+
+  my-games-lib-app:
+    build:
+      context: app
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    container_name: my-games-lib-api-rest
+    hostname: my-games-lib-api-rest
+    entrypoint: ["java","-jar","/my-games-lib-api-rest.jar"]
+
+volumes:
+  postgres-data-mgl:

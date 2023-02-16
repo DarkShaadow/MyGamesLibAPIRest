@@ -1,0 +1,6 @@
+FROM postgres:10.12-alpine
+
+ENV POSTGRES_PASSWORD=password
+ENV POSTGRES_USER=user
+ENV POSTGRES_DB=MyGamesLib
+ENV TZ=Europe/Paris
