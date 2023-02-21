@@ -17,4 +17,7 @@ public class Editor implements IEntity<Long> {
     private Long id;
 
     private String name;
+
+    @OneToOne
+    private Media logo;
 }

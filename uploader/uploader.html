@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Ajax Spring File Upload Example </title>
+</head>
+<body>
+<div>
+    <!-- HTML5 Input Form Elements -->
+    <input id="uploadlogo" type="file" name="uploadlogo"/>
+    <button id="upload-logo-button" onclick="uploadLogo()"> Upload Logo</button>
+
+    <!-- Ajax JavaScript File Upload to Spring Boot Logic -->
+    <script>
+        async function uploadLogo() {
+            let formData = new FormData();
+            formData.append("file", uploadlogo.files[0]);
+            let response = await fetch('http://localhost:8082/my-games-lib-api-rest/game/1/logo', {
+                method: "PUT",
+                body: formData
+            });
+
+            if (response.status == 200) {
+                alert("File successfully uploaded.");
+            }
+        }
+    </script>
+</div>
+<div>
+    <!-- HTML5 Input Form Elements -->
+    <input id="uploadpicture" type="file" name="uploadpicture"/>
+    <button id="upload-picture-button" onclick="uploadPicture()"> Upload Picture</button>
+
+    <!-- Ajax JavaScript File Upload to Spring Boot Logic -->
+    <script>
+        async function uploadPicture() {
+            let formData = new FormData();
+            formData.append("file", uploadpicture.files[0]);
+            let response = await fetch('http://localhost:8082/my-games-lib-api-rest/game/1/media?mediaType=PICTURE', {
+                method: "PUT",
+                body: formData
+            });
+
+            if (response.status == 200) {
+                alert("File successfully uploaded.");
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

@@ -9,7 +9,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,5 +59,12 @@ public class EditorController {
     @DeleteMapping("/{id}")
     public boolean delete(@Parameter @PathVariable Long id) {
         return editorService.delete(id);
+    }
+
+    @Operation(summary = "Ajouter un logo à un éditeur")
+    @PutMapping("/{id}/logo")
+    public String uploadLogo(@Parameter @PathVariable Long id,
+                             @RequestParam("file") MultipartFile file) throws IOException {
+        return editorService.addLogo(id, file);
     }
 }

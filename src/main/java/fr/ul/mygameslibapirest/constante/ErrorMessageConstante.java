@@ -1,5 +1,6 @@
-package fr.ul.mygameslibapirest.exception;
+package fr.ul.mygameslibapirest.constante;
 
+import fr.ul.mygameslibapirest.exception.ErrorMessage;
 import org.springframework.http.HttpStatus;
 
 public class ErrorMessageConstante {

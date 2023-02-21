@@ -1,7 +1,7 @@
 package fr.ul.mygameslibapirest.service;
 
 import fr.ul.mygameslibapirest.entity.IEntity;
-import fr.ul.mygameslibapirest.exception.ErrorMessageConstante;
+import fr.ul.mygameslibapirest.constante.ErrorMessageConstante;
 import fr.ul.mygameslibapirest.exception.FunctionalException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
