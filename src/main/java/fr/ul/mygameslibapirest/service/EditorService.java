@@ -1,11 +1,14 @@
 package fr.ul.mygameslibapirest.service;
 
 import fr.ul.mygameslibapirest.constante.EntityType;
+import fr.ul.mygameslibapirest.dto.filters.EditorFilter;
 import fr.ul.mygameslibapirest.dto.requestbody.editor.CreateEditorBody;
 import fr.ul.mygameslibapirest.dto.requestbody.editor.PatchEditorBody;
 import fr.ul.mygameslibapirest.entity.Editor;
 import fr.ul.mygameslibapirest.entity.Media;
 import fr.ul.mygameslibapirest.repository.EditorRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +24,10 @@ public class EditorService extends IService<Editor, Long, EditorRepository> {
                             MediaService mediaService) {
         super(repository, "Editeur");
         this.mediaService = mediaService;
+    }
+
+    public Page<Editor> getAll(EditorFilter filter, Pageable pageable) {
+        return repository.findAll(filter, pageable);
     }
 
     public Editor create(CreateEditorBody body) {

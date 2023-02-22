@@ -1,6 +1,7 @@
 package fr.ul.mygameslibapirest.controller;
 
 import fr.ul.mygameslibapirest.dto.EditorDto;
+import fr.ul.mygameslibapirest.dto.filters.EditorFilter;
 import fr.ul.mygameslibapirest.dto.requestbody.editor.CreateEditorBody;
 import fr.ul.mygameslibapirest.dto.requestbody.editor.PatchEditorBody;
 import fr.ul.mygameslibapirest.mapper.EditorMapper;
@@ -8,12 +9,12 @@ import fr.ul.mygameslibapirest.service.EditorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin(maxAge = 3600)
 @Tag(name = "Editor")
@@ -32,12 +33,17 @@ public class EditorController {
 
     @Operation(summary = "Retourne les editeurs paginés")
     @GetMapping("")
-    public List<EditorDto> getAll() {
-        return editorService.getAll()
-                .stream()
-                .map(editorMapper::to)
-                .collect(Collectors.toList());
+    public Page<EditorDto> getAll(@Parameter @RequestParam(required = false) Integer size,
+                                  @Parameter @RequestParam(required = false) Integer page,
+                                  @Parameter @RequestParam(required = false) String name) {
+        return editorService.getAll(
+                        EditorFilter.builder()
+                                .name(name)
+                                .build(),
+                        PageRequest.of((page == null ? 0 : page), (size == null ? Integer.MAX_VALUE : size)))
+                .map(editorMapper::to);
     }
+
     @Operation(summary = "Retourne un éditeur")
     @GetMapping("/{id}")
     public EditorDto get(@Parameter @PathVariable Long id) {

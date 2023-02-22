@@ -2,11 +2,14 @@ package fr.ul.mygameslibapirest.service;
 
 import fr.ul.mygameslibapirest.constante.EntityType;
 import fr.ul.mygameslibapirest.constante.MediaType;
+import fr.ul.mygameslibapirest.dto.filters.GameFilter;
 import fr.ul.mygameslibapirest.dto.requestbody.game.CreateGameBody;
 import fr.ul.mygameslibapirest.dto.requestbody.game.PatchGameBody;
 import fr.ul.mygameslibapirest.entity.Game;
 import fr.ul.mygameslibapirest.entity.Media;
 import fr.ul.mygameslibapirest.repository.GameRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +30,10 @@ public class GameService extends IService<Game, Long, GameRepository> {
         super(repository, "Jeu");
         this.mediaService = mediaService;
         this.editorService = editorService;
+    }
+
+    public Page<Game> getAll(GameFilter filter, Pageable pageable) {
+        return repository.findAll(filter, pageable);
     }
 
     public Game create(CreateGameBody body) {
