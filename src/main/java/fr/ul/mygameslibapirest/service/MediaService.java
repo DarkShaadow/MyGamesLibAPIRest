@@ -59,7 +59,7 @@ public class MediaService extends IService<Media, Long, MediaRepository> {
                 .findFirst()
                 .orElse(null);
         if (media != null) {
-            delete(media);
+            new File(getPath(media)).delete();
         }
         else {
             extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
@@ -112,18 +112,5 @@ public class MediaService extends IService<Media, Long, MediaRepository> {
                 .contentLength(file.length())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(new ByteArrayResource(Files.readAllBytes(path)));
-    }
-
-    public boolean delete(Long id) {
-        Media media;
-
-        media = get(id);
-        repository.delete(media);
-
-        return delete(media);
-    }
-
-    public boolean delete(Media media) {
-        return new File(getPath(media)).delete();
     }
 }
