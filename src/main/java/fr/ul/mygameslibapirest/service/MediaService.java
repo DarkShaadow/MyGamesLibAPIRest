@@ -57,7 +57,6 @@ public class MediaService extends IService<Media, Long, MediaRepository> {
             extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
 
             media = Media.builder()
-                    .id(media.getId())
                     .entityType(entityType)
                     .mediaType(MediaType.LOGO)
                     .extension(extension)
@@ -80,7 +79,7 @@ public class MediaService extends IService<Media, Long, MediaRepository> {
                 videoFolder :
                 pictureFolder;
 
-        fileName = folderPath + "\\" + entity.getId() + entity.getExtension();
+        fileName = folderPath + "/" + entity.getId() + entity.getExtension();
 
         return fileName;
     }

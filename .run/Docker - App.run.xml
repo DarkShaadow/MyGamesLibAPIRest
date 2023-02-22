@@ -3,7 +3,7 @@
     <deployment type="dockerfile">
       <settings>
         <option name="containerName" value="docker_mgl_app" />
-        <option name="commandLineOptions" value="--network docker_mgl_network -p 8082:8080" />
+        <option name="commandLineOptions" value="--network docker_mgl_network -p 8082:8080 -v local-storage-mgl:/var/lib/docker/volumes/files" />
         <option name="sourceFilePath" value="docker/app/Dockerfile" />
       </settings>
     </deployment>
