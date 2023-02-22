@@ -80,18 +80,11 @@ public class GameController {
         return gameService.delete(id);
     }
 
-    @Operation(summary = "Ajouter un logo à un jeu")
-    @PutMapping("/{id}/logo")
-    public String uploadLogo(@Parameter @PathVariable Long id,
-                             @RequestParam("file") MultipartFile file) throws IOException {
-        return gameService.addLogo(id, file);
-    }
-
-    @Operation(summary = "Ajouter une image ou une vidéo à un jeu")
+    @Operation(summary = "Ajouter un média")
     @PutMapping("/{id}/media")
     public String uploadFile(@Parameter @PathVariable Long id,
                              @Parameter @RequestParam MyMediaType mediaType,
                              @RequestParam("file") MultipartFile file) throws IOException {
-        return gameService.uploadFile(id, file, mediaType);
+        return gameService.uploadMedia(id, file, mediaType);
     }
 }
