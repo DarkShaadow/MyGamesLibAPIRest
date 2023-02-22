@@ -29,6 +29,9 @@ public class EditorService extends IService<Editor, Long, EditorRepository> {
     public Page<Editor> getAll(EditorFilter filter, Pageable pageable) {
         return repository.findAll(filter, pageable);
     }
+    public Long getLogo(Long id) {
+        return get(id).getLogo().getId();
+    }
 
     public Editor create(CreateEditorBody body) {
         Editor entity;

@@ -1,7 +1,7 @@
 package fr.ul.mygameslibapirest.service;
 
 import fr.ul.mygameslibapirest.constante.EntityType;
-import fr.ul.mygameslibapirest.constante.MediaType;
+import fr.ul.mygameslibapirest.constante.MyMediaType;
 import fr.ul.mygameslibapirest.dto.filters.GameFilter;
 import fr.ul.mygameslibapirest.dto.requestbody.game.CreateGameBody;
 import fr.ul.mygameslibapirest.dto.requestbody.game.PatchGameBody;
@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,23 +73,28 @@ public class GameService extends IService<Game, Long, GameRepository> {
 
         return mediaService.getPath(media);
     }
+
     @Transactional
-    public String uploadFile(Long id, MultipartFile file, MediaType mediaType) throws IOException {
+    public String uploadFile(Long id, MultipartFile file, MyMediaType myMediaType) throws IOException {
         Media media;
         Game entity;
 
         entity = get(id);
-        media = mediaService.upload(id, EntityType.GAME, file, mediaType);
+        media = mediaService.upload(id, EntityType.GAME, file, myMediaType);
         entity.addMedia(media);
 
         return mediaService.getPath(media);
     }
 
-    public List<String> getMedias(Long id, MediaType mediaType) {
-        return get(id).getMedias()
-                .stream()
-                .filter(media -> media.getMediaType() == mediaType)
-                .map(mediaService::getPath)
-                .collect(Collectors.toList());
+    public List<Long> getMedias(Long id, MyMediaType mediaType) {
+        if (mediaType == MyMediaType.LOGO) {
+            return Collections.singletonList(get(id).getLogo().getId());
+        } else {
+            return get(id).getMedias()
+                    .stream()
+                    .filter(media -> media.getMediaType() == mediaType)
+                    .map(Media::getId)
+                    .collect(Collectors.toList());
+        }
     }
 }

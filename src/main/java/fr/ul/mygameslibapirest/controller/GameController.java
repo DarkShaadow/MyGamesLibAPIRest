@@ -1,6 +1,6 @@
 package fr.ul.mygameslibapirest.controller;
 
-import fr.ul.mygameslibapirest.constante.MediaType;
+import fr.ul.mygameslibapirest.constante.MyMediaType;
 import fr.ul.mygameslibapirest.dto.GameDto;
 import fr.ul.mygameslibapirest.dto.filters.GameFilter;
 import fr.ul.mygameslibapirest.dto.requestbody.game.CreateGameBody;
@@ -56,8 +56,8 @@ public class GameController {
 
     @Operation(summary = "Retourne les médias d'un jeu")
     @GetMapping("/{id}/media")
-    public List<String> getPictures(@Parameter @PathVariable Long id,
-                                    @Parameter @RequestParam MediaType mediaType) {
+    public List<Long> getMedias(@Parameter @PathVariable Long id,
+                                    @Parameter @RequestParam MyMediaType mediaType) {
         return gameService.getMedias(id, mediaType);
     }
 
@@ -90,7 +90,7 @@ public class GameController {
     @Operation(summary = "Ajouter une image ou une vidéo à un jeu")
     @PutMapping("/{id}/media")
     public String uploadFile(@Parameter @PathVariable Long id,
-                             @Parameter @RequestParam MediaType mediaType,
+                             @Parameter @RequestParam MyMediaType mediaType,
                              @RequestParam("file") MultipartFile file) throws IOException {
         return gameService.uploadFile(id, file, mediaType);
     }

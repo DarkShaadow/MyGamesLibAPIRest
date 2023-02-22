@@ -49,6 +49,11 @@ public class EditorController {
     public EditorDto get(@Parameter @PathVariable Long id) {
         return editorMapper.to(editorService.get(id));
     }
+    @Operation(summary = "Retourne le logo d'un éditeur")
+    @GetMapping("/{id}/logo")
+    public Long getMedias(@Parameter @PathVariable Long id) {
+        return editorService.getLogo(id);
+    }
 
     @Operation(summary = "Créer un éditeur")
     @PostMapping("")

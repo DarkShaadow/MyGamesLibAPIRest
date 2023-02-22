@@ -1,7 +1,7 @@
 package fr.ul.mygameslibapirest.entity;
 
 import fr.ul.mygameslibapirest.constante.EntityType;
-import fr.ul.mygameslibapirest.constante.MediaType;
+import fr.ul.mygameslibapirest.constante.MyMediaType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +19,7 @@ public class Media implements IEntity<Long> {
     private Long id;
 
     private EntityType entityType;
-    private MediaType mediaType;
+    private MyMediaType mediaType;
     private String extension;
 
     @Column(name = "related_to")

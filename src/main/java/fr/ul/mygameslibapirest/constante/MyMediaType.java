@@ -1,6 +1,6 @@
 package fr.ul.mygameslibapirest.constante;
 
-public enum MediaType {
+public enum MyMediaType {
 
     LOGO,
     PICTURE,
