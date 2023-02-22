@@ -63,7 +63,7 @@ public class GameService extends IService<Game, Long, GameRepository> {
     }
 
     @Transactional
-    public String uploadMedia(Long id, MultipartFile file, MyMediaType mediaType) throws IOException {
+    public Long uploadMedia(Long id, MultipartFile file, MyMediaType mediaType) throws IOException {
         if (mediaType == MyMediaType.LOGO) {
             return addLogo(id, file);
         }
@@ -72,7 +72,7 @@ public class GameService extends IService<Game, Long, GameRepository> {
         }
     }
 
-    public String addLogo(Long id, MultipartFile file) throws IOException {
+    public Long addLogo(Long id, MultipartFile file) throws IOException {
         Media media;
         Game entity;
 
@@ -80,10 +80,10 @@ public class GameService extends IService<Game, Long, GameRepository> {
         media = mediaService.uploadLogo(id, EntityType.GAME, file);
         entity.setLogo(media);
 
-        return mediaService.getPath(media);
+        return media.getId();
     }
 
-    public String addMedia(Long id, MultipartFile file, MyMediaType mediaType) throws IOException {
+    public Long addMedia(Long id, MultipartFile file, MyMediaType mediaType) throws IOException {
         Media media;
         Game entity;
 
@@ -91,7 +91,7 @@ public class GameService extends IService<Game, Long, GameRepository> {
         media = mediaService.upload(id, EntityType.GAME, file, mediaType);
         entity.addMedia(media);
 
-        return mediaService.getPath(media);
+        return media.getId();
     }
 
     public List<Long> getMedias(Long id, MyMediaType mediaType) {

@@ -82,7 +82,7 @@ public class GameController {
 
     @Operation(summary = "Ajouter un média")
     @PutMapping("/{id}/media")
-    public String uploadFile(@Parameter @PathVariable Long id,
+    public Long uploadFile(@Parameter @PathVariable Long id,
                              @Parameter @RequestParam MyMediaType mediaType,
                              @RequestParam("file") MultipartFile file) throws IOException {
         return gameService.uploadMedia(id, file, mediaType);
