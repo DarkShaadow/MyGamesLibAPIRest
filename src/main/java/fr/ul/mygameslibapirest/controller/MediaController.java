@@ -1,6 +1,5 @@
 package fr.ul.mygameslibapirest.controller;
 
-import fr.ul.mygameslibapirest.service.DeleteMediaService;
 import fr.ul.mygameslibapirest.service.MediaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,12 +17,9 @@ import java.io.IOException;
 public class MediaController {
 
     private final MediaService mediaService;
-    private final DeleteMediaService deleteMediaService;
 
-    public MediaController(MediaService mediaService,
-                           DeleteMediaService deleteMediaService) {
+    public MediaController(MediaService mediaService) {
         this.mediaService = mediaService;
-        this.deleteMediaService = deleteMediaService;
     }
 
     @Operation(summary = "Télécharger un média")
@@ -35,6 +31,6 @@ public class MediaController {
     @Operation(summary = "Supprimer un média")
     @DeleteMapping(path = "/{id}")
     public boolean delete(@Parameter @PathVariable Long id) {
-        return deleteMediaService.delete(id);
+        return mediaService.delete(id);
     }
 }
