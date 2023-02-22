@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Copy jar" type="BatchConfigurationType" factoryName="Batch">
+    <module name="MyGamesLibAPIRest" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="WORKING_DIRECTORY" value="./docker" />
+    <option name="PARENT_ENVS" value="true" />
+    <option name="SCRIPT_NAME" value="copy-jar.bat" />
+    <option name="PARAMETERS" value="" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
