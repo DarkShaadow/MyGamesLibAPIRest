@@ -1,8 +1,10 @@
 package fr.ul.mygameslibapirest.service;
 
 import fr.ul.mygameslibapirest.constante.EntityType;
+import fr.ul.mygameslibapirest.constante.ErrorMessageConstante;
 import fr.ul.mygameslibapirest.constante.MyMediaType;
 import fr.ul.mygameslibapirest.entity.Media;
+import fr.ul.mygameslibapirest.exception.FunctionalException;
 import fr.ul.mygameslibapirest.repository.MediaRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -59,7 +61,7 @@ public class MediaService extends IService<Media, Long, MediaRepository> {
                 .findFirst()
                 .orElse(null);
         if (media != null) {
-            new File(getPath(media)).delete();
+            delete(media);
         }
         else {
             extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
@@ -112,5 +114,23 @@ public class MediaService extends IService<Media, Long, MediaRepository> {
                 .contentLength(file.length())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(new ByteArrayResource(Files.readAllBytes(path)));
+    }
+
+    public boolean delete(Long id) {
+        Media media;
+
+        media = get(id);
+
+        if (media.getMediaType() == MyMediaType.LOGO) {
+            throw new FunctionalException(ErrorMessageConstante.DELETE_LOGO);
+        }
+
+        repository.delete(media);
+
+        return delete(media);
+    }
+
+    public boolean delete(Media media) {
+        return new File(getPath(media)).delete();
     }
 }
